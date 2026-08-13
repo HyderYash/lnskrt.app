@@ -4,7 +4,7 @@ import "./globals.css";
 export const metadata: Metadata = {
   metadataBase: new URL(
     process.env.NEXT_PUBLIC_SITE_URL ??
-      "https://lenskart-order-1348342058.themindsyncgmail-com.chatgpt.site",
+      "http://localhost:3000",
   ),
   title: "My Orders | Lenskart",
   description: "Track and view the details of your Lenskart order.",

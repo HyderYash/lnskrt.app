@@ -5,6 +5,13 @@ import { useState } from "react";
 
 export default function OrderDetailPage() {
   const [invoiceOpen, setInvoiceOpen] = useState(false);
+  const [copied, setCopied] = useState(false);
+
+  const copyCoupon = async () => {
+    await navigator.clipboard.writeText("RUNT2-UFFHEJ");
+    setCopied(true);
+    window.setTimeout(() => setCopied(false), 1600);
+  };
 
   return (
     <main className="page-shell detail-page">
@@ -33,7 +40,18 @@ export default function OrderDetailPage() {
             <button className="invoice-button" type="button" onClick={() => setInvoiceOpen(!invoiceOpen)} aria-expanded={invoiceOpen}>
               <span className={invoiceOpen ? "triangle open" : "triangle"} /> Invoice
             </button>
-            {invoiceOpen && <div className="invoice-menu"><a href="/invoice-1348342058.txt" download>Download Invoice</a></div>}
+            {invoiceOpen && (
+              <div className="invoice-menu">
+                <a
+                  className="invoice-download"
+                  href="/lenskart-invoice-1348342058.pdf"
+                  download="Lenskart-Invoice-1348342058.pdf"
+                >
+                  <span className="pdf-badge">PDF</span>
+                  <span><b>Download Invoice</b><small>Order #1348342058</small></span>
+                </a>
+              </div>
+            )}
           </div>
         </div>
 
@@ -62,7 +80,7 @@ export default function OrderDetailPage() {
               <div className="item-visual">
                 <img src="/assets/meller-binti-all-black.png" alt="Meller Binti All Black sunglasses" />
               </div>
-              <div className="item-name"><h3>Meller Binti All Black</h3><p>Medium</p></div>
+              <div className="item-name"><h3>Meller Binti All Black</h3></div>
               <div className="lens-name">Meller Regular Tinted (default Grey)</div>
               <div className="price-row"><strong>Item Price</strong><div><b>₹ 879</b><a href="#price-breakup">Price Breakup</a></div></div>
             </section>
@@ -70,7 +88,7 @@ export default function OrderDetailPage() {
             <section className="invoice-note" id="price-breakup">
               <h2>Price Details</h2>
               <div><span>Lenses fitted in frame</span><strong>₹879</strong></div>
-              <div><span>Run for Frame coupon</span><strong>- ₹1,999</strong></div>
+              <div><span>Run for Frame coupon<small>Code: RUNT2-UFFHEJ</small></span><strong>- ₹1,999</strong></div>
               <div><span>Complimentary eye checkup</span><strong>FREE</strong></div>
             </section>
           </div>
@@ -94,7 +112,17 @@ export default function OrderDetailPage() {
 
             <h2 className="aside-heading">Included Benefits</h2>
             <section className="side-card benefits-card">
-              <div><strong>Run for Frame coupon</strong><p>20,000 steps completed. Coupon applied to your frame.</p><a href="#price-breakup">View Price Details <span>›</span></a></div>
+              <div className="coupon-benefit">
+                <strong>Run for Frame coupon</strong>
+                <p>20,000 steps completed. Coupon applied to your frame.</p>
+                <div className="coupon-code-row">
+                  <span>Coupon code</span>
+                  <button type="button" onClick={copyCoupon} aria-label="Copy coupon code RUNT2-UFFHEJ">
+                    <code>RUNT2-UFFHEJ</code><em aria-live="polite">{copied ? "Copied" : "Copy"}</em>
+                  </button>
+                </div>
+                <a href="#price-breakup">View Price Details <span>›</span></a>
+              </div>
               <div><strong>Complimentary Eye Checkup</strong><p>Free eye checkup included with this order</p></div>
             </section>
 
